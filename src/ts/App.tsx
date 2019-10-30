@@ -24,7 +24,12 @@ const App = (): JSX.Element => {
   </>)
 }
 
-const Button = ({onClick, label} : {onClick: () => void, label: string}) => (
+interface ButtonProps {
+  onClick: () => void
+  label: string
+}
+
+const Button = ({onClick, label}: ButtonProps): JSX.Element => (
   <button onClick={onClick}>{label}</button>
 )
 
