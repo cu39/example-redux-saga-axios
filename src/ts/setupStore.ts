@@ -1,14 +1,18 @@
 import {combineReducers} from 'redux'
 import {createLogger} from 'redux-logger'
+import createSagaMiddleware from 'redux-saga'
 import {configureStore, getDefaultMiddleware} from 'redux-starter-kit'
-import counter from './slices/counter'
+import {IFetchStatus, fetchPostsStatus} from './slices/fetchStatus'
+import posts, {Post} from './slices/posts'
 
 export interface IState {
-  counter: number
+  posts: Post[]
+  fetchPostsStatus: IFetchStatus
 }
 
 const reducer = combineReducers({
-  counter,
+  posts,
+  fetchPostsStatus,
 })
 
 const middleware = getDefaultMiddleware({
@@ -22,6 +26,10 @@ if (process.env.NODE_ENV !== 'production') {
   })
   middleware.push(logger)
 }
+
+export const sagaMiddleware = createSagaMiddleware()
+
+middleware.push(sagaMiddleware)
 
 export default () => configureStore({
   reducer,

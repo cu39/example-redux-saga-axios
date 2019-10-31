@@ -1,11 +1,13 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import {configureStore} from 'redux-starter-kit'
-import setupStore from './setupStore'
+import setupStore, {sagaMiddleware} from './setupStore'
+import fetchPostsSaga from './sagas/fetchPostsSaga'
 import App from './App'
 
 const store = setupStore()
+
+sagaMiddleware.run(fetchPostsSaga)
 
 ReactDOM.render(
   <Provider store={store}>
